@@ -1,6 +1,6 @@
 # Not working yet, work in progress
 blueprint:
-  name: Philips Hue Dimmer Switch
+  name: "Philips Hue Dimmer Switch"
   description: Control anything using Philips Hue Dimmer Switch buttons.
   domain: automation
   input:
@@ -8,13 +8,12 @@ blueprint:
       name: Dimmer Switches
       selector:
         device:
-          manufacturer: 'Signify Netherlands B.V.'
+          multiple: true
+          filter:
+            - manufacturer: 'Signify Netherlands B.V.'
           entity:
-            multiple: true
-            filter:
-              - domain: sensor
-                device_class: battery
-          
+            domain: sensor
+            device_class: battery
     on_press:
       name: Button 1 (ON) press
       default: []
