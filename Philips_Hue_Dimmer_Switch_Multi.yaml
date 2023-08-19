@@ -1,4 +1,3 @@
-# Not working yet, work in progress
 blueprint:
   name: "Philips Hue Dimmer Switch"
   description: Control anything using Philips Hue Dimmer Switch buttons.
@@ -58,35 +57,38 @@ blueprint:
 mode: restart
 max_exceeded: silent
 trigger:
-- platform: event
-  event_type: zha_event
-  event_data:
-    device_id: !input remotes
+  - platform: event
+    event_type: zha_event
+variables:
+  remotes: !input remotes
+condition:
+  - condition: template
+    value_template: "{{ trigger.event.data.device_id in remotes }}"
 action:
-- variables:
-    command_type: '{{ trigger.event.data.command }}'
-- choose:
-  - conditions:
-    - '{{ command_type == "on_press" }}'
-    sequence: !input on_press
-  - conditions:
-    - '{{ command_type == "up_press" }}'
-    sequence: !input up_press
-  - conditions:
-    - '{{ command_type == "down_press" }}'
-    sequence: !input down_press
-  - conditions:
-    - '{{ command_type == "off_press" }}'
-    sequence: !input off_press
-  - conditions:
-    - '{{ command_type == "on_hold" }}'
-    sequence: !input on_hold
-  - conditions:
-    - '{{ command_type == "up_hold" }}'
-    sequence: !input up_hold
-  - conditions:
-    - '{{ command_type == "down_hold" }}'
-    sequence: !input down_hold
-  - conditions:
-    - '{{ command_type == "off_hold" }}'
-    sequence: !input off_hold
+  - variables:
+      command_type: '{{ trigger.event.data.command }}'
+  - choose:
+    - conditions:
+      - '{{ command_type == "on_press" }}'
+      sequence: !input on_press
+    - conditions:
+      - '{{ command_type == "up_press" }}'
+      sequence: !input up_press
+    - conditions:
+      - '{{ command_type == "down_press" }}'
+      sequence: !input down_press
+    - conditions:
+      - '{{ command_type == "off_press" }}'
+      sequence: !input off_press
+    - conditions:
+      - '{{ command_type == "on_hold" }}'
+      sequence: !input on_hold
+    - conditions:
+      - '{{ command_type == "up_hold" }}'
+      sequence: !input up_hold
+    - conditions:
+      - '{{ command_type == "down_hold" }}'
+      sequence: !input down_hold
+    - conditions:
+      - '{{ command_type == "off_hold" }}'
+      sequence: !input off_hold
