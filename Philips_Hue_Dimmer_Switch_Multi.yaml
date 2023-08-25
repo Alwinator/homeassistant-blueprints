@@ -54,7 +54,7 @@ blueprint:
       selector:
         action: {}
   source_url: https://github.com/Alwinator/homeassistant-blueprints/blob/main/Philips_Hue_Dimmer_Switch_Multi.yaml
-mode: restart
+mode: queued
 max_exceeded: silent
 trigger:
   - platform: event
